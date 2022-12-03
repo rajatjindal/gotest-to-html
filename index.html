@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-900 text-white">
+    <!-- navigation -->
+    <div class="h-12 bg-gray-800 w-full flex">
+      <div class="my-auto ml-2">
+        <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M4.75 5.75H19.25"></path>
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M4.75 18.25H19.25"></path>
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M4.75 12H19.25"></path>
+        </svg>
+      </div>
+      <div class="my-auto ml-2 text-sm">
+        <span class="bg-gray-700 px-2 py-0.5 rounded text-red-400">spin</span>
+        e2e test report
+      </div>
+    </div>
+
+    <!-- os selector -->
+    <div class="mt-10">
+      <div class="w-11/12 mx-auto flex mb-2 border-b border-gray-100 text-sm">
+        <div class="ml-5 hover:bg-gray-500 hover:rounded-t-md hover:cursor-pointer px-2 py-2">Linux</div>
+        <div class="ml-5 rounded-t-md bg-gray-700 hover:cursor-pointer px-2 py-2">Mac OS</div>
+      </div>
+    </div>
+
+    <!-- tags -->
+    <div class="mt-5">
+      <div class="w-11/12 mx-auto flex text-sm">
+        <div class="border border-gray-700 rounded flex ml-2">
+          <div class="border-r border-gray-700 bg-gray-700"><span class="px-2">Spin</span></div>
+          <div class="border-r border-gray-700"><span class="px-2">v0.0.6</span></div>
+        </div>
+
+        <div class="border border-gray-700 rounded flex ml-2">
+          <div class="border-r border-gray-700 bg-gray-700"><span class="px-2">Runner</span></div>
+          <div class="border-r border-gray-700"><span class="px-2">Linux</span></div>
+        </div>
+
+        <div class="border border-gray-700 rounded flex ml-2">
+          <div class="border-r border-gray-700 bg-gray-700"><span class="px-2">Golang</span></div>
+          <div class="border-r border-gray-700"><span class="px-2">1.17</span></div>
+        </div>
+
+        <div class="border border-gray-700 rounded flex ml-2">
+          <div class="border-r border-gray-700 bg-gray-700"><span class="px-2">Tinygo</span></div>
+          <div class="border-r border-gray-700"><span class="px-2">v0.0.25</span></div>
+        </div>
+
+        <div class="border border-gray-700 rounded flex ml-2">
+          <div class="border-r border-gray-700 bg-gray-700"><span class="px-2">Zig</span></div>
+          <div class="border-r border-gray-700"><span class="px-2">v0.0.1</span></div>
+        </div>
+
+        <div class="border border-gray-700 rounded flex ml-2">
+          <div class="border-r border-gray-700 bg-gray-700"><span class="px-2">Grain</span></div>
+          <div class="border-r border-gray-700"><span class="px-2">v0.0.1</span></div>
+        </div>
+
+        <div class="border border-gray-700 rounded flex ml-2">
+          <div class="border-r border-gray-700 bg-gray-700"><span class="px-2">Clang</span></div>
+          <div class="border-r border-gray-700"><span class="px-2">v0.0.1</span></div>
+        </div>
+
+      </div>
+
+      <!-- templates level report -->
+      <div class="mt-5">
+        <div class="w-4/12 ml-16 text-sm cursor-pointer">
+          <div class="flex hover:bg-gray-800 hover:rounded py-1">
+            <div class="bg-green-600 rounded-full w-6 h-6 transform scale-75 ml-2">
+              <span class="text-white">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75" />
+                </svg>
+              </span>
+            </div>
+            <div class="ml-2 mt-0.5">
+              <p>spin login</p>
+            </div>
+          </div>
+
+          <div class="flex hover:bg-gray-800 hover:rounded py-1">
+            <div class="bg-green-600 rounded-full w-6 h-6 transform scale-75 ml-2">
+              <span class="text-white">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75" />
+                </svg>
+              </span>
+            </div>
+            <div class="ml-2 mt-0.5">
+              <p>spin templates</p>
+            </div>
+          </div>
+
+          <div class="flex hover:bg-gray-800 hover:rounded py-1">
+            <div class="bg-green-600 rounded-full w-6 h-6 transform scale-75 ml-2">
+              <span class="text-white">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75" />
+                </svg>
+              </span>
+            </div>
+            <div class="ml-2 mt-0.5">
+              <p>http-go</p>
+            </div>
+          </div>
+          <!-- testcase level data -->
+          <div class="ml-10">
+            <div class="flex">
+              <div>
+                <span class="text-green-300 text-sm">
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75" />
+                  </svg>
+                </span>
+              </div>
+              <div class="ml-3 my-auto">spin new</div>
+            </div>
+
+            <div class="flex">
+              <div>
+                <span class="text-green-300 text-sm">
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75" />
+                  </svg>
+                </span>
+              </div>
+              <div class="ml-3 my-auto">spin build</div>
+            </div>
+
+            <div class="flex">
+              <div>
+                <span class="text-green-300 text-sm">
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                      d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75" />
+                  </svg>
+                </span>
+              </div>
+              <div class="ml-3 my-auto">spin deploy</div>
+            </div>
+
+          </div>
+          <div class="flex hover:bg-gray-800 hover:rounded py-1">
+            <div class="bg-green-600 rounded-full w-6 h-6 transform scale-75 ml-2">
+              <span class="text-white">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75" />
+                </svg>
+              </span>
+            </div>
+            <div class="ml-2 mt-0.5">
+              <p>http-rust</p>
+            </div>
+          </div>
+          <div class="flex hover:bg-gray-800 hover:rounded py-1">
+            <div class="bg-red-600 rounded-full w-6 h-6 transform scale-75 ml-2">
+              <span class="text-white">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M17.25 6.75L6.75 17.25" />
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M6.75 6.75L17.25 17.25" />
+                </svg>
+              </span>
+            </div>
+            <div class="ml-2 mt-0.5">
+              <p>http-zig</p>
+            </div>
+          </div>
+
+          <div class="flex hover:bg-gray-800 hover:rounded py-1">
+            <div class="bg-red-600 rounded-full w-6 h-6 transform scale-75 ml-2">
+              <span class="text-white">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M17.25 6.75L6.75 17.25" />
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M6.75 6.75L17.25 17.25" />
+                </svg>
+              </span>
+            </div>
+            <div class="ml-2 mt-0.5">
+              <p>http-c</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>
