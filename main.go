@@ -16,8 +16,8 @@ func main() {
 	}
 
 	data := &reporter.TestDataWithMeta{
-		TitlePrimary:   os.Getenv("title-primary"),
-		TitleSecondary: os.Getenv("title-secondary"),
+		TitlePrimary:   "Spin",
+		TitleSecondary: "e2e test report",
 		Tests:          tests,
 		Tags: []reporter.Tag{
 			{
