@@ -72,12 +72,23 @@
 
       <!-- print grandchild -->
       {{ define "printgrandchild" }}
-        <div class="relative flex hover:bg-gray-800 hover:rounded py-1" onclick="toggleDetails('{{ .Id }}')" ;>
+        <div class="w-1/2 relative flex hover:bg-gray-800 hover:rounded py-1" onclick="toggleLogs('{{ .Id }}')">
           {{  template "check" }}
-          <div class="ml-1 mt-0.5">
-            <p>{{ .Name }}</p>
+          <div class="w-full ml-1 mr-2 mt-0.5 grid grid-cols-2 gap-4">
+            <div class="col-span-1">{{ .Name }}</div>
+            <div class="col-span-1 text-right">{{ .Duration }}s</div>
           </div>
         </div>
+        
+        <!-- logs -->
+        <div class="rounded-md border-gray-800 shadow-inner bg-gray-600 hidden mt-5 mb-5" id="{{ .Id }}">
+          <div class="px-4 py-4">
+          {{ range .Logs }}
+            <p>{{ . }}</p>
+          {{ end }}
+          </div>
+        </div>
+
       {{ end }}
 
 
@@ -121,6 +132,10 @@
     </div>
     <script>
       function toggleDetails(id) {
+        document.getElementById(id).classList.toggle("hidden");
+      }
+
+      function toggleLogs(id) {
         document.getElementById(id).classList.toggle("hidden");
       }
     </script>

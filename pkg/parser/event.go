@@ -36,7 +36,7 @@ func (p *eventProcessor) processEvent(event Event) {
 		p.allTests = append(p.allTests, current)
 	case "output":
 		test := p.findTest(event)
-		test.Systemout += "\n" + event.Output
+		test.Logs = append(test.Logs, event.Output)
 	case "pass":
 		test := p.findTest(event)
 		test.Result = event.Action
