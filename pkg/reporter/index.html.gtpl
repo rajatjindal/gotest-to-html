@@ -74,86 +74,83 @@
 
       </div>
 
-{{ define "printchild" }}
-<div class="relative flex hover:bg-gray-800 hover:rounded py-1" onclick="toggleDetails('{{ .PrimaryKey }}')";>
-            <div class="bg-green-600 rounded-full w-6 h-6 transform scale-75 ml-2">
-              <span class="text-white">
-                <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                    d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75" />
-                </svg>
-              </span>
-            </div>
-            <div class="ml-2 mt-0.5">
-              <p>{{ getHumanReadableName .Name }}</p>
-            </div>
+      <!-- checkbox with circle -->
+      {{ define "check-with-circle" }}
+      <div class="bg-green-600 rounded-full w-6 h-6 transform scale-75 ml-2">
+        <span class="text-white">
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+              d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75" />
+          </svg>
+        </span>
+      </div>
+      {{ end }}
+
+      <!-- checkbox with circle -->
+      {{ define "check" }}
+      <div class="text-green-200 w-6 h-6 transform scale-75 ml-2">
+        <span>
+          <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+              d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75" />
+          </svg>
+        </span>
+      </div>
+      {{ end }}
+
+      <!-- print grandchild -->
+      {{ define "printgrandchild" }}
+        <div class="relative flex hover:bg-gray-800 hover:rounded py-1" onclick="toggleDetails('{{ .Id }}')" ;>
+          {{  template "check" }}
+          <div class="ml-1 mt-0.5">
+            <p>{{ .Name }}</p>
           </div>
-<div class="ml-10 hidden" id="{{ .PrimaryKey }}">
-{{ range .Children }}
-        
-          
-          {{ template "printchild" . }}
-          
-      {{ end }}
-</div>
-
-          {{ end }}
-    {{ define "printtest" }}
-			<div class="flex py-1">
-            <div class="mt-0.5 mb-5">
-              <p>{{ getHumanReadableName .Name }}</p>
-            </div>
         </div>
-        <!-- range over tests -->
-          {{ range .Children }}
-        
-          
-          {{ template "printchild" . }}
       {{ end }}
 
-      
-		{{ end }}
+
+      <!-- print child -->
+      {{ define "printchild" }}
+        <div class="relative flex hover:bg-gray-800 hover:rounded py-1" onclick="toggleDetails('{{ .Id }}')" ;>
+          {{  template "check-with-circle" }}
+          <div class="ml-2 mt-0.5">
+            <p>{{ .Name }}</p>
+          </div>
+        </div>
+        <div class="ml-10 hidden" id="{{ .Id }}">
+          {{ range .Children }}
+            {{ template "printgrandchild" . }}
+          {{ end }}
+        </div>
+      {{ end }}
+
+      <!-- print test -->
+      {{ define "printtest" }}
+        <div class="flex py-1">
+          <div class="mt-0.5 mb-5">
+            <p>{{ .Name }}</p>
+          </div>
+        </div>
+        
+        <!-- range over tests -->
+        {{ range .Children }}
+          {{ template "printchild" . }}
+        {{ end }}
+      {{ end }}
 
       <!-- templates level report -->
       <div class="mt-5">
         <div class="w-8/12 ml-16 text-sm cursor-pointer">
-        {{ range .Tests }}
-
-
-          {{ template "printtest" . }}
-
-
-          
-      <!-- range tests ends above -->
-
-      {{ end }}
-      <!-- range suites ends above -->
-
-          <div class="flex hover:bg-gray-800 hover:rounded py-1">
-            <div class="bg-red-600 rounded-full w-6 h-6 transform scale-75 ml-2">
-              <span class="text-white">
-                <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                    d="M17.25 6.75L6.75 17.25" />
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                    d="M6.75 6.75L17.25 17.25" />
-                </svg>
-              </span>
-            </div>
-            <div class="ml-2 mt-0.5">
-              <p>http-c</p>
-            </div>
-          </div>
+          {{ range .Tests }}
+            {{ template "printtest" . }}
+          {{ end }}
         </div>
       </div>
     </div>
     <script>
-
-    function toggleDetails(id) {
-      document.getElementById(id).classList.toggle("hidden");
-    }
+      function toggleDetails(id) {
+        document.getElementById(id).classList.toggle("hidden");
+      }
     </script>
   </body>
-
-
 </html>
