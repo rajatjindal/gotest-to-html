@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/rajatjindal/junit-to-html/pkg/parser"
 	"github.com/rajatjindal/junit-to-html/pkg/reporter"
@@ -9,12 +10,23 @@ import (
 )
 
 func main() {
-	tests, err := parser.IngestFile("tests.json")
+	tests, err := parser.IngestFile(os.Args[1])
 	if err != nil {
 		logrus.Fatal(err)
 	}
 
-	out, err := reporter.ToHTML(tests)
+	data := &reporter.TestDataWithMeta{
+		TitlePrimary:   os.Getenv("title-primary"),
+		TitleSecondary: os.Getenv("title-secondary"),
+		Tests:          tests,
+		Tags: []reporter.Tag{
+			{
+				Key:   "golang",
+				Value: "1.17",
+			},
+		},
+	}
+	out, err := reporter.ToHTML(data)
 	if err != nil {
 		logrus.Fatal(err)
 	}

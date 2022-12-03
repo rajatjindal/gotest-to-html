@@ -21,13 +21,18 @@ func ToJson(tests []*parser.Test) (string, error) {
 //go:embed index.html.gtpl
 var tmpl string
 
-func ToHTML(tests []*parser.Test) (string, error) {
-	data := struct {
-		Tests []*parser.Test
-	}{
-		Tests: tests,
-	}
+type TestDataWithMeta struct {
+	TitlePrimary   string
+	TitleSecondary string
+	Tags           []Tag
+	Tests          []*parser.Test
+}
+type Tag struct {
+	Key   string
+	Value string
+}
 
+func ToHTML(data *TestDataWithMeta) (string, error) {
 	var buf bytes.Buffer
 
 	t, err := template.New("report").Parse(tmpl)

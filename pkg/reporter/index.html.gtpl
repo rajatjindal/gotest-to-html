@@ -1,3 +1,27 @@
+<!-- checkbox with circle -->
+{{ define "check-with-circle" }}
+<div class="bg-green-600 rounded-full w-6 h-6 transform scale-75 ml-2">
+  <span class="text-white">
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+        d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75" />
+    </svg>
+  </span>
+</div>
+{{ end }}
+
+<!-- checkbox with circle -->
+{{ define "check" }}
+<div class="text-green-200 w-6 h-6 transform scale-75 ml-2">
+  <span>
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+        d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75" />
+    </svg>
+  </span>
+</div>
+{{ end }}
+
 <!doctype html>
 <html>
 
@@ -21,82 +45,30 @@
         </svg>
       </div>
       <div class="my-auto ml-2 text-sm">
-        <span class="bg-gray-700 px-2 py-0.5 rounded text-red-400">spin</span>
-        e2e test report
+        <span class="bg-gray-700 px-2 py-0.5 rounded text-red-400">{{ .TitlePrimary }}</span>
+        {{  .TitleSecondary }}
       </div>
     </div>
 
     <!-- os selector -->
     <div class="mt-10">
       <div class="w-11/12 mx-auto flex mb-2 border-b border-gray-100 text-sm">
-        <div class="ml-5 hover:bg-gray-500 hover:rounded-t-md hover:cursor-pointer px-2 py-2">Linux</div>
-        <div class="ml-5 rounded-t-md bg-gray-700 hover:cursor-pointer px-2 py-2">Mac OS</div>
+        <div class="ml-5 rounded-t-md bg-gray-700 hover:cursor-pointer px-2 py-2">Linux</div>
       </div>
     </div>
 
-    <!-- tags -->
+    
     <div class="mt-5">
+      
+      <!-- tags -->
       <div class="w-11/12 mx-auto flex text-sm">
+        {{ range .Tags }}
         <div class="border border-gray-700 rounded flex ml-2">
-          <div class="border-r border-gray-700 bg-gray-700"><span class="px-2">Spin</span></div>
-          <div class="border-r border-gray-700"><span class="px-2">v0.0.6</span></div>
+          <div class="border-r border-gray-700 bg-gray-700"><span class="px-2">{{ .Key }}</span></div>
+          <div class="border-r border-gray-700"><span class="px-2">{{ .Value }}</span></div>
         </div>
-
-        <div class="border border-gray-700 rounded flex ml-2">
-          <div class="border-r border-gray-700 bg-gray-700"><span class="px-2">Runner</span></div>
-          <div class="border-r border-gray-700"><span class="px-2">Linux</span></div>
-        </div>
-
-        <div class="border border-gray-700 rounded flex ml-2">
-          <div class="border-r border-gray-700 bg-gray-700"><span class="px-2">Golang</span></div>
-          <div class="border-r border-gray-700"><span class="px-2">1.17</span></div>
-        </div>
-
-        <div class="border border-gray-700 rounded flex ml-2">
-          <div class="border-r border-gray-700 bg-gray-700"><span class="px-2">Tinygo</span></div>
-          <div class="border-r border-gray-700"><span class="px-2">v0.0.25</span></div>
-        </div>
-
-        <div class="border border-gray-700 rounded flex ml-2">
-          <div class="border-r border-gray-700 bg-gray-700"><span class="px-2">Zig</span></div>
-          <div class="border-r border-gray-700"><span class="px-2">v0.0.1</span></div>
-        </div>
-
-        <div class="border border-gray-700 rounded flex ml-2">
-          <div class="border-r border-gray-700 bg-gray-700"><span class="px-2">Grain</span></div>
-          <div class="border-r border-gray-700"><span class="px-2">v0.0.1</span></div>
-        </div>
-
-        <div class="border border-gray-700 rounded flex ml-2">
-          <div class="border-r border-gray-700 bg-gray-700"><span class="px-2">Clang</span></div>
-          <div class="border-r border-gray-700"><span class="px-2">v0.0.1</span></div>
-        </div>
-
+        {{ end }}
       </div>
-
-      <!-- checkbox with circle -->
-      {{ define "check-with-circle" }}
-      <div class="bg-green-600 rounded-full w-6 h-6 transform scale-75 ml-2">
-        <span class="text-white">
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-              d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75" />
-          </svg>
-        </span>
-      </div>
-      {{ end }}
-
-      <!-- checkbox with circle -->
-      {{ define "check" }}
-      <div class="text-green-200 w-6 h-6 transform scale-75 ml-2">
-        <span>
-          <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-              d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75" />
-          </svg>
-        </span>
-      </div>
-      {{ end }}
 
       <!-- print grandchild -->
       {{ define "printgrandchild" }}
