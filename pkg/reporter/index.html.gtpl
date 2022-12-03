@@ -12,11 +12,35 @@
 
 <!-- checkbox with circle -->
 {{ define "check" }}
-<div class="text-green-200 w-6 h-6 transform scale-75 ml-2">
+<div class="text-green-400 font-bold w-6 h-6 transform scale-75 ml-2">
   <span>
     <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
         d="M5.75 12.8665L8.33995 16.4138C9.15171 17.5256 10.8179 17.504 11.6006 16.3715L18.25 6.75" />
+    </svg>
+  </span>
+</div>
+{{ end }}
+
+<!-- checkbox with circle -->
+{{ define "close-with-circle" }}
+<div class="bg-red-600 rounded-full w-6 h-6 transform scale-75 ml-2">
+  <span class="text-white">
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.25 6.75L6.75 17.25"></path>
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.75 6.75L17.25 17.25"></path>
+    </svg>
+  </span>
+</div>
+{{ end }}
+
+<!-- checkbox with circle -->
+{{ define "close" }}
+<div class="text-red-400 font-bold w-6 h-6 transform scale-75 ml-2">
+  <span>
+    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.25 6.75L6.75 17.25"></path>
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.75 6.75L17.25 17.25"></path>
     </svg>
   </span>
 </div>
@@ -72,13 +96,19 @@
 
       <!-- print grandchild -->
       {{ define "printgrandchild" }}
-        <div class="w-1/2 relative flex hover:bg-gray-800 hover:rounded py-1">
-          {{  template "check" }}
+        <div class="w-1/2 relative flex hover:bg-gray-800 hover:rounded py-1" onclick="toggleLogs('{{ .Id }}')">
+          {{ if eq .Result "pass" }}
+            {{  template "check" }}
+          {{ end }}
+
+          {{ if eq .Result "fail" }}
+            {{  template "close" }}
+          {{ end }}
           <div class="w-full ml-1 mr-2 mt-0.5 grid grid-cols-2 gap-4">
             <div class="col-span-1">{{ .Name }}</div>
             <div class="col-span-1 flex justify-end">
               <div class="text-sm">{{ .Duration }}s</div>
-              <div class="ml-2 text-green-100 hover:text-green-400" onclick="toggleLogs('{{ .Id }}')">
+              <div class="ml-2 text-green-100 hover:text-green-400">
                 <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.75 19.25H16.25C17.3546 19.25 18.25 18.3546 18.25 17.25V9L14 4.75H7.75C6.64543 4.75 5.75 5.64543 5.75 6.75V17.25C5.75 18.3546 6.64543 19.25 7.75 19.25Z"></path>
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9.25H13.75V5"></path>
@@ -105,7 +135,14 @@
       <!-- print child -->
       {{ define "printchild" }}
         <div class="relative flex hover:bg-gray-800 hover:rounded py-1" onclick="toggleDetails('{{ .Id }}')" ;>
-          {{  template "check-with-circle" }}
+          {{ if eq .Result "pass" }}
+            {{  template "check-with-circle" }}
+          {{ end }}
+          
+          {{ if eq .Result "fail" }}
+            {{  template "close-with-circle" }}
+          {{ end }}
+
           <div class="ml-2 mt-0.5">
             <p>{{ .Name }}</p>
           </div>
@@ -132,7 +169,7 @@
       {{ end }}
 
       <!-- templates level report -->
-      <div class="mt-5">
+      <div class="mt-5 mb-10">
         <div class="w-8/12 ml-16 text-sm cursor-pointer">
           {{ range .Tests }}
             {{ template "printtest" . }}
