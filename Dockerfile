@@ -6,10 +6,10 @@ COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go test ./... -cover
 RUN CGO_ENABLED=0 GOOS=linux go build --ldflags "-s -w" -o bin/gotest-to-html main.go
 
-FROM alpine:3.17
+FROM alpine/git:2.36.3
 
 COPY --from=builder /go/src/github.com/rajatjindal/gotest-to-html/bin/gotest-to-html /usr/local/bin/
 COPY --from=builder /go/src/github.com/rajatjindal/gotest-to-html/entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-CMD ["entrypoint.sh"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

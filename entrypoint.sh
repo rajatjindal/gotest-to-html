@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 set -o pipefail
 
@@ -10,11 +10,11 @@ if [[ -z "$INPUT_DASHBOARD_REPO" ]]; then
 fi
 
 ## clone dashboard repo
-git clone -d 1 https://ghactions:${INPUT_DASHBOARD_REPO_TOKEN}@github.com/${INPUT_DASHBOARD_REPO}.git dashboard-repo
+git clone --depth 1 https://ghactions:${INPUT_DASHBOARD_REPO_TOKEN}@github.com/${INPUT_DASHBOARD_REPO}.git dashboard-repo
 
 ## get dir name
 DATE=$(date '+%Y-%m-%d')
-mkdir -p ${INPUT_HTML_OUTPUT_FILE} dashboard-repo/data/executions/${DATE}_${INPUT_RUN_ID}
+mkdir -p dashboard-repo/data/executions/${DATE}_${INPUT_RUN_ID}
 
 ## copy html to dir
 cp -p ${INPUT_HTML_OUTPUT_FILE} dashboard-repo/data/executions/${DATE}_${INPUT_RUN_ID}/
