@@ -9,27 +9,28 @@ import (
 	"github.com/rajatjindal/junit-to-html/pkg/parser"
 )
 
-func ToJson(tests []*parser.Test) (string, error) {
-	b, err := json.Marshal(tests)
+func ToJson(data *TestDataWithMeta) ([]byte, error) {
+	b, err := json.Marshal(data)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	return string(b), nil
+	return b, nil
 }
 
 //go:embed index.html.gtpl
 var tmpl string
 
 type TestDataWithMeta struct {
-	TitlePrimary   string
-	TitleSecondary string
-	Tags           []Tag
-	Tests          []*parser.Test
+	TitlePrimary   string         `json:"titlePrimary"`
+	TitleSecondary string         `json:"titleSecondary"`
+	Tags           []Tag          `json:"tags"`
+	Tests          []*parser.Test `json:"tests"`
 }
+
 type Tag struct {
-	Key   string
-	Value string
+	Key   string `json:"key"`
+	Value string `json:"value"`
 }
 
 func ToHTML(data *TestDataWithMeta) ([]byte, error) {

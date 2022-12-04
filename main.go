@@ -24,16 +24,32 @@ func main() {
 		Tags:           getTagsFromInput(getInputForAction("tags")),
 	}
 
-	out, err := reporter.ToHTML(data)
-	if err != nil {
-		fmt.Println("ERROR ", err.Error())
-		os.Exit(1)
+	if getInputForAction("html_output_file") != "" {
+		out, err := reporter.ToHTML(data)
+		if err != nil {
+			fmt.Println("ERROR ", err.Error())
+			os.Exit(1)
+		}
+
+		err = os.WriteFile(htmlOutputFile(), out, 0644)
+		if err != nil {
+			fmt.Println("ERROR ", err.Error())
+			os.Exit(1)
+		}
 	}
 
-	err = os.WriteFile(getOutputFile(), out, 0644)
-	if err != nil {
-		fmt.Println("ERROR ", err.Error())
-		os.Exit(1)
+	if getInputForAction("json_output_file") != "" {
+		out, err := reporter.ToJson(data)
+		if err != nil {
+			fmt.Println("ERROR ", err.Error())
+			os.Exit(1)
+		}
+
+		err = os.WriteFile(jsonOutputFile(), out, 0644)
+		if err != nil {
+			fmt.Println("ERROR ", err.Error())
+			os.Exit(1)
+		}
 	}
 }
 
@@ -63,6 +79,10 @@ func getTagsFromInput(s string) []reporter.Tag {
 	return tags
 }
 
-func getOutputFile() string {
-	return filepath.Join(os.Getenv("GITHUB_WORKSPACE"), getInputForAction("html_report_file"))
+func htmlOutputFile() string {
+	return filepath.Join(os.Getenv("GITHUB_WORKSPACE"), getInputForAction("html_output_file"))
+}
+
+func jsonOutputFile() string {
+	return filepath.Join(os.Getenv("GITHUB_WORKSPACE"), getInputForAction("json_output_file"))
 }

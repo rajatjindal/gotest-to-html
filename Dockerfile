@@ -9,5 +9,6 @@ RUN CGO_ENABLED=0 GOOS=linux go build --ldflags "-s -w" -o bin/gotest-to-html ma
 FROM alpine:3.17
 
 COPY --from=builder /go/src/github.com/rajatjindal/gotest-to-html/bin/gotest-to-html /usr/local/bin/
+COPY --from=builder /go/src/github.com/rajatjindal/gotest-to-html/entrypoint.sh /usr/local/bin/
 
-CMD ["gotest-to-html"]
+CMD ["entrypoint.sh"]

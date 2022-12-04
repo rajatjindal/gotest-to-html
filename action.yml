@@ -15,5 +15,9 @@ inputs:
     description: "html or json"
   gotest_output_file:
     description: file containing golang tests output. support 'json' format only
-  html_report_file:
+  html_output_file:
     description: file where html report will be saved
+  json_output_file:
+    description: file where json report will be saved
+  run_id:
+    description: "github action run id"  
