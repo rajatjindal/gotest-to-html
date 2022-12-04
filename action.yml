@@ -3,7 +3,7 @@ name: "gotest-to-html"
 description: "create html report from gotest json output file"
 runs:
   using: "docker"
-  image: "docker://ghcr.io/rajatjindal/gotest-to-html:v0.0.12"
+  image: "docker://ghcr.io/rajatjindal/gotest-to-html:v0.0.13"
 inputs:
   title_primary:
     description: "displayed in navigation with highlighted background"
@@ -23,6 +23,8 @@ inputs:
     description: "github action run id"  
   dashboard_repo:
     description: "private repo to archive report in"
+  dashboard_repo_data_branch:
+    description: "branch to push data, defaults to main"  
   dashboard_repo_token:
     description: "token to use for pushing data to"
   

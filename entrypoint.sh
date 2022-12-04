@@ -9,8 +9,11 @@ if [[ -z "$INPUT_DASHBOARD_REPO" ]]; then
     exit 0;
 fi
 
+## check which data branch
+DATA_BRANCH="${INPUT_DASHBOARD_REPO_DATA_BRANCH:-main}"
+
 ## clone dashboard repo
-git clone --depth 1 https://ghactions:${INPUT_DASHBOARD_REPO_TOKEN}@github.com/${INPUT_DASHBOARD_REPO}.git dashboard-repo
+git clone --depth 1 -b ${DATA_BRANCH} https://ghactions:${INPUT_DASHBOARD_REPO_TOKEN}@github.com/${INPUT_DASHBOARD_REPO}.git dashboard-repo
 
 ## get dir name
 DATE=$(date '+%Y-%m-%d')
