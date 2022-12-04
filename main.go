@@ -6,13 +6,13 @@ import (
 
 	"github.com/rajatjindal/junit-to-html/pkg/parser"
 	"github.com/rajatjindal/junit-to-html/pkg/reporter"
-	"github.com/sirupsen/logrus"
 )
 
 func main() {
 	tests, err := parser.IngestFile(os.Args[1])
 	if err != nil {
-		logrus.Fatal(err)
+		fmt.Println("ERROR ", err.Error())
+		os.Exit(1)
 	}
 
 	data := &reporter.TestDataWithMeta{
@@ -28,7 +28,8 @@ func main() {
 	}
 	out, err := reporter.ToHTML(data)
 	if err != nil {
-		logrus.Fatal(err)
+		fmt.Println("ERROR ", err.Error())
+		os.Exit(1)
 	}
 
 	fmt.Println(out)
