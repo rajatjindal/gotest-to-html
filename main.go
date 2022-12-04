@@ -80,9 +80,19 @@ func getTagsFromInput(s string) []reporter.Tag {
 }
 
 func htmlOutputFile() string {
-	return filepath.Join(os.Getenv("GITHUB_WORKSPACE"), getInputForAction("html_output_file"))
+	file := "report.html"
+	if getInputForAction("html_output_file") != "" {
+		file = getInputForAction("html_output_file")
+	}
+
+	return filepath.Join(os.Getenv("GITHUB_WORKSPACE"), file)
 }
 
 func jsonOutputFile() string {
-	return filepath.Join(os.Getenv("GITHUB_WORKSPACE"), getInputForAction("json_output_file"))
+	file := "report.json"
+	if getInputForAction("json_output_file") != "" {
+		file = getInputForAction("json_output_file")
+	}
+
+	return filepath.Join(os.Getenv("GITHUB_WORKSPACE"), file)
 }
