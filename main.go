@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/rajatjindal/junit-to-html/pkg/parser"
@@ -29,7 +30,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	err = os.WriteFile(getInputForAction("html_report_file"), out, 0644)
+	err = os.WriteFile(getOutputFile(), out, 0644)
 	if err != nil {
 		fmt.Println("ERROR ", err.Error())
 		os.Exit(1)
@@ -60,4 +61,8 @@ func getTagsFromInput(s string) []reporter.Tag {
 	}
 
 	return tags
+}
+
+func getOutputFile() string {
+	return filepath.Join(os.Getenv("GITHUB_WORKSPACE"), getInputForAction("html_report_file"))
 }
