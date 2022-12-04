@@ -22,13 +22,18 @@ func main() {
 		Tests:          tests,
 		Tags:           getTagsFromInput(getInputForAction("tags")),
 	}
+
 	out, err := reporter.ToHTML(data)
 	if err != nil {
 		fmt.Println("ERROR ", err.Error())
 		os.Exit(1)
 	}
 
-	fmt.Println(out)
+	err = os.WriteFile(getInputForAction("html_report_file"), out, 0644)
+	if err != nil {
+		fmt.Println("ERROR ", err.Error())
+		os.Exit(1)
+	}
 }
 
 func getInputForAction(key string) string {

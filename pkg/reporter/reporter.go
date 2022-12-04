@@ -32,18 +32,18 @@ type Tag struct {
 	Value string
 }
 
-func ToHTML(data *TestDataWithMeta) (string, error) {
+func ToHTML(data *TestDataWithMeta) ([]byte, error) {
 	var buf bytes.Buffer
 
 	t, err := template.New("report").Parse(tmpl)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	err = t.ExecuteTemplate(&buf, "report", data)
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	return buf.String(), nil
+	return buf.Bytes(), nil
 }
