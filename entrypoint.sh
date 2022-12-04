@@ -3,7 +3,7 @@
 set -o pipefail
 
 ## generate report first
-gotest-to-html
+gotest-to-html generate
 
 if [[ -z "$INPUT_DASHBOARD_REPO" ]]; then
     exit 0;
