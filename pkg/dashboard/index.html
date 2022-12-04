@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.min.js"></script>
+    </head>
+
+    <body>
+        <div style="height:500px!important;width:800px!important;" class="w-1/2 mx-auto">
+            <canvas id="myChart"></canvas>
+        </div>
+        <script>
+            const DATA_COUNT = 7;
+            const NUMBER_CFG = { count: DATA_COUNT, min: 0, max: 100 };
+
+            const labels = ["", "", "", "", "", "", ""]
+
+            const data = {
+                labels: labels,
+                datasets: [
+                    {
+                        label: 'Dataset 1',
+                        data: [10, 2, 23, 54, 88, 99, 18],
+                        backgroundColor: "red",
+                    },
+                    {
+                        label: 'Dataset 2',
+                        data: [9, 4, 25, 57, 89, 9, 8],
+                        backgroundColor: "blue",
+                    },
+                    {
+                        label: 'Dataset 3',
+                        data: [10, 2, 23, 54, 88, 99, 18],
+                        backgroundColor: "green",
+                    },
+                ]
+            };
+
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Chart.js Bar Chart - Stacked'
+                        },
+                    },
+                    responsive: true,
+                    scales: {
+                        xAxes: {
+                            stacked: true,
+                            display: false,
+                        },
+                        yAxes: {
+                            stacked: true,
+                            ticks: {
+                                display: false
+                            }
+                        }
+                    },
+                }
+            };
+
+            var ctx = document.getElementById("myChart");
+            var chart = new Chart(ctx, config);
+        </script>
+    </body>
+
+</html>
