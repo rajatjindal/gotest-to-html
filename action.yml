@@ -3,7 +3,7 @@ name: "gotest-to-html"
 description: "create html report from gotest json output file"
 runs:
   using: "docker"
-  image: "docker://ghcr.io/rajatjindal/gotest-to-html:v0.0.3"
+  image: "docker://ghcr.io/rajatjindal/gotest-to-html:v0.0.4"
 inputs:
   title_primary:
     description: "displayed in navigation with highlighted background"
