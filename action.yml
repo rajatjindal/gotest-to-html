@@ -1,6 +1,6 @@
 # action.yml
 name: "gotest-to-html"
-description: "automatically opens PR for upstream krew-index repo when you publish new release of your awesome plugin"
+description: "create html report from gotest json output file"
 runs:
   using: "docker"
   image: "docker://ghcr.io/rajatjindal/gotest-to-html:v0.0.1"
