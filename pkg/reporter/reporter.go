@@ -6,7 +6,7 @@ import (
 	"encoding/json"
 	"html/template"
 
-	"github.com/rajatjindal/junit-to-html/pkg/parser"
+	"github.com/rajatjindal/gotest-to-html/pkg/parser"
 )
 
 func ToJson(data *TestDataWithMeta) ([]byte, error) {
