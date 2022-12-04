@@ -104,6 +104,11 @@
           {{ if eq .Result "fail" }}
             {{  template "close" }}
           {{ end }}
+
+          {{ if eq .Result "skip" }}
+            skipped
+          {{ end }}
+
           <div class="w-full ml-1 mr-2 mt-0.5 grid grid-cols-2 gap-4">
             <div class="col-span-1">{{ .Name }}</div>
             <div class="col-span-1 flex justify-end">
@@ -134,7 +139,7 @@
 
       <!-- print child -->
       {{ define "printchild" }}
-        <div class="relative flex hover:bg-gray-800 hover:rounded py-1" onclick="toggleDetails('{{ .Id }}')" ;>
+        <div class="w-1/2 flex hover:bg-gray-800 hover:rounded py-1 px-2" onclick="toggleDetails('{{ .Id }}')" ;>
           {{ if eq .Result "pass" }}
             {{  template "check-with-circle" }}
           {{ end }}
@@ -143,9 +148,29 @@
             {{  template "close-with-circle" }}
           {{ end }}
 
-          <div class="ml-2 mt-0.5">
-            <p>{{ .Name }}</p>
+          {{ if eq .Result "skip" }}
+            {{  template "close-with-circle" }}
+          {{ end }}
+
+          <div class="w-full ml-2 mt-0.5 grid grid-cols-2">
+            <div class="col-span-1 text-left"><p>{{ .Name }}</p></div>
+            <div>
+              <div class="text-sm text-right">{{ .Duration }}s</div>
+            </div>
           </div>
+
+          <!-- logs -->
+          {{ if or (eq .Result "skip") (eq .Result "fail") }}
+          {{ if eq  (len .Children) 0}}
+            <div class="rounded-md border-gray-800 shadow-inner bg-gray-600 hidden mt-5 mb-5" id="{{ .Id }}">
+            <div class="px-4 py-4">
+              {{ range .Logs }}
+                <p>{{ . }}</p>
+              {{ end }}
+            </div>
+          </div>
+          {{ end }}
+          {{ end }}
         </div>
         <div class="ml-10 hidden" id="{{ .Id }}">
           {{ range .Children }}
@@ -157,15 +182,24 @@
       <!-- print test -->
       {{ define "printtest" }}
         <div class="flex py-1">
-          <div class="mt-0.5 mb-5">
-            <p>{{ .Name }}</p>
+          <div class="mt-0.5 mb-5 border border-gray-700 px-3 py-1 rounded shadow-md hover:shadow-lg hover:border-gray-500 flex " onclick="toggleDetails('{{ .Id }}')">
+            <div class="flex">
+              <p>
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.75 8.75L14.25 12L10.75 15.25"></path>
+                </svg>
+              </p>
+              <p class="my-auto">{{ .Name }}</p>
+            </div>
           </div>
         </div>
         
+        <div class="mb-10" id="{{ .Id }}">
         <!-- range over tests -->
         {{ range .Children }}
           {{ template "printchild" . }}
         {{ end }}
+        </div>
       {{ end }}
 
       <!-- templates level report -->
