@@ -10,5 +10,6 @@ FROM alpine:3.17
 
 COPY --from=builder /go/src/github.com/rajatjindal/gotest-to-html/bin/gotest-to-html /usr/local/bin/
 COPY --from=builder /go/src/github.com/rajatjindal/gotest-to-html/entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 CMD ["entrypoint.sh"]
