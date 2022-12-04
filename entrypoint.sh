@@ -22,6 +22,9 @@ cp -p ${INPUT_HTML_OUTPUT_FILE} dashboard-repo/data/executions/${DATE}_${INPUT_R
 ## copy json to dir
 cp -p ${INPUT_JSON_OUTPUT_FILE} dashboard-repo/data/executions/${DATE}_${INPUT_RUN_ID}/
 
+## copt latest report to index.html in root
+cp -p ${INPUT_HTML_OUTPUT_FILE} dashboard-repo/index.html
+
 ## regenerate dashboard
 #TODO
 
