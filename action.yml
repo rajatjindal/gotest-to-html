@@ -3,13 +3,15 @@ name: "gotest-to-html"
 description: "automatically opens PR for upstream krew-index repo when you publish new release of your awesome plugin"
 runs:
   using: "docker"
-  image: "docker://rajatjindal/gotest-to-html:v0.0.1"
+  image: "docker://ghcr.io/rajatjindal/gotest-to-html:v0.0.1"
 inputs:
-  title-primary:
+  title_primary:
     description: "displayed in navigation with highlighted background"
-  title-secondary:
+  title_secondary:
     description: "displayed in navigation next to primary title"
   tags:
-    description: "tags associated with this execution"
+    description: "space separated tags associated with this execution. e.g. KEY=VALUE KEY2=VALUE2"
   format:
     description: "html or json"
+  gotest_output_file:
+    description: file containing golang tests output. support 'json' format only
