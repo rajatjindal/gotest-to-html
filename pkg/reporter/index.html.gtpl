@@ -22,7 +22,7 @@
 </div>
 {{ end }}
 
-<!-- checkbox with circle -->
+<!-- close with circle -->
 {{ define "close-with-circle" }}
 <div class="bg-red-600 rounded-full w-6 h-6 transform scale-75 ml-2">
   <span class="text-white">
@@ -34,7 +34,7 @@
 </div>
 {{ end }}
 
-<!-- checkbox with circle -->
+<!-- close -->
 {{ define "close" }}
 <div class="text-red-400 font-bold w-6 h-6 transform scale-75 ml-2">
   <span>
@@ -42,6 +42,24 @@
       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.25 6.75L6.75 17.25"></path>
       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.75 6.75L17.25 17.25"></path>
     </svg>
+  </span>
+</div>
+{{ end }}
+
+<!-- skip with circle -->
+{{ define "skip-with-circle" }}
+<div class="bg-gray-600 rounded-full w-6 h-6 transform scale-75 ml-2 flex text-center justify-center">
+  <span class="text-white font-bold">
+    !
+  </span>
+</div>
+{{ end }}
+
+<!-- skip -->
+{{ define "skip" }}
+<div class="text-gray-400 font-bold w-6 h-6 transform scale-75 ml-2 text-center justify-center">
+  <span>
+    !
   </span>
 </div>
 {{ end }}
@@ -96,7 +114,7 @@
 
       <!-- print grandchild -->
       {{ define "printgrandchild" }}
-        <div class="w-1/2 relative flex hover:bg-gray-800 hover:rounded py-1" onclick="toggleLogs('{{ .Id }}')">
+      <div class="w-1/2 relative flex hover:bg-gray-800 hover:rounded py-1" onclick="toggleLogs('{{ .Id }}')">
           {{ if eq .Result "pass" }}
             {{  template "check" }}
           {{ end }}
@@ -106,40 +124,38 @@
           {{ end }}
 
           {{ if eq .Result "skip" }}
-            skipped
+            {{ template "skip" }}
           {{ end }}
 
-          <div class="w-full ml-1 mr-2 mt-0.5 grid grid-cols-2 gap-4">
-            <div class="col-span-1">{{ .Name }}</div>
-            <div class="col-span-1 flex justify-end">
-              <div class="text-sm">{{ .Duration }}s</div>
-              <div class="ml-2 text-green-100 hover:text-green-400">
-                <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.75 19.25H16.25C17.3546 19.25 18.25 18.3546 18.25 17.25V9L14 4.75H7.75C6.64543 4.75 5.75 5.64543 5.75 6.75V17.25C5.75 18.3546 6.64543 19.25 7.75 19.25Z"></path>
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9.25H13.75V5"></path>
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 15.25H14.25"></path>
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 12.25H14.25"></path>
-                </svg>
-              </div>
-            </div>  
-          </div>
+        <div class="w-full ml-1 mr-2 mt-0.5 grid grid-cols-2 gap-4">
+          <div class="col-span-1">{{ .Name }}</div>
+          <div class="col-span-1 flex justify-end">
+            <div class="text-sm">{{ .Duration }}s</div>
+            <div class="ml-2 text-green-100 hover:text-green-400">
+              <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7.75 19.25H16.25C17.3546 19.25 18.25 18.3546 18.25 17.25V9L14 4.75H7.75C6.64543 4.75 5.75 5.64543 5.75 6.75V17.25C5.75 18.3546 6.64543 19.25 7.75 19.25Z"></path>
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18 9.25H13.75V5"></path>
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 15.25H14.25"></path>
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 12.25H14.25"></path>
+              </svg>
+            </div>
+          </div>  
         </div>
-        
-        <!-- logs -->
-        <div class="rounded-md border-gray-800 shadow-inner bg-gray-600 hidden mt-5 mb-5" id="{{ .Id }}">
-          <div class="px-4 py-4">
-          {{ range .Logs }}
-            <p>{{ . }}</p>
-          {{ end }}
-          </div>
+      </div>
+      <!-- logs -->
+      <div class="rounded-md border-gray-800 shadow-inner bg-gray-600 hidden mt-5 mb-5 mx-10" id="{{ .Id }}">
+        <div class="px-4 py-4">
+        {{ range .Logs }}
+          <p>{{ . }}</p>
+        {{ end }}
         </div>
-
+      </div>
       {{ end }}
 
 
       <!-- print child -->
       {{ define "printchild" }}
-      <div class="w-1/2 hover:bg-gray-800 hover:rounded py-1 px-2" onclick="toggleDetails('{{ .Id }}')" ;>
+      <div class="w-1/2 hover:bg-gray-800 hover:rounded py-1 px-2" onclick="toggleDetails('{{ .Id }}')">
         <div class="flex">
           {{ if eq .Result "pass" }}
             {{  template "check-with-circle" }}
@@ -150,7 +166,7 @@
           {{ end }}
 
           {{ if eq .Result "skip" }}
-            {{  template "close-with-circle" }}
+            {{  template "skip-with-circle" }}
           {{ end }}
 
           <div class="w-full ml-2 mt-0.5 grid grid-cols-2">
@@ -158,58 +174,57 @@
             <div><div class="text-sm text-right">{{ .Duration }}s</div></div>
           </div>
         </div>
-        <div>
-          <!-- logs -->
-          {{ if or (eq .Result "skip") (eq .Result "fail") }}
-          {{ if eq  (len .Children) 0}}
-            <div class="rounded-md border-gray-800 shadow-inner bg-gray-600 hidden mt-5 mb-5" id="{{ .Id }}">
-            <div class="px-4 py-4">
-              {{ range .Logs }}
-                <p>{{ . }}</p>
-              {{ end }}
-            </div>
-          </div>
-          {{ end }}
+      </div>
+      <!-- logs -->
+      {{ if or (eq .Result "skip") (eq .Result "fail") }}
+      {{ if eq  (len .Children) 0}}
+      <div class="rounded-md border-gray-800 shadow-inner bg-gray-600 hidden mt-5 mb-5" id="{{ .Id }}">
+        <div class="px-4 py-4">
+          {{ range .Logs }}
+          <p>{{ . }}</p>
           {{ end }}
         </div>
-        <div class="ml-10 hidden" id="{{ .Id }}">
-          {{ range .Children }}
-            {{ template "printgrandchild" . }}
-          {{ end }}
-        </div>
+      </div>
+      {{ end }}
+      {{ end }}
+      <div class="ml-10 hidden" id="{{ .Id }}">
+        {{ range .Children }}
+          {{ template "printgrandchild" . }}
+        {{ end }}
+      </div>
       {{ end }}
 
       <!-- print test -->
       {{ define "printtest" }}
-        <div class="flex py-1">
-          <div class="mt-0.5 mb-5 border border-gray-700 px-3 py-1 rounded shadow-md hover:shadow-lg hover:border-gray-500 flex " onclick="toggleDetails('{{ .Id }}')">
-            <div class="flex">
-              <p>
-                <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.75 8.75L14.25 12L10.75 15.25"></path>
-                </svg>
-              </p>
-              <p class="my-auto">{{ .Name }}</p>
-            </div>
+        <div class="mt-0.5 mb-5 border border-gray-700 px-3 py-1 rounded shadow-md hover:shadow-lg hover:border-gray-500 flex " onclick="toggleDetails('{{ .Id }}')">
+          <div class="flex">
+            <p>
+              <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.75 8.75L14.25 12L10.75 15.25"></path>
+              </svg>
+            </p>
+            <p class="my-auto">{{ .Name }}</p>
           </div>
         </div>
-        
-        <div class="mb-10" id="{{ .Id }}">
-        <!-- range over tests -->
-        {{ range .Children }}
-          {{ template "printchild" . }}
-        {{ end }}
-        </div>
+ 
+
+      <div class="mb-10" id="{{ .Id }}">
+      <!-- range over tests -->
+      {{ range .Children }}
+        {{ template "printchild" . }}
+      {{ end }}
+      </div>
       {{ end }}
 
       <!-- templates level report -->
       <div class="mt-5 mb-10">
-        <div class="w-8/12 ml-16 text-sm cursor-pointer">
-          {{ range .Tests }}
-            {{ template "printtest" . }}
-          {{ end }}
+        <div class="w-11/12 ml-16 text-sm cursor-pointer">
+        {{ range .Tests }}
+        <div class="py-1">
+          {{ template "printtest" . }}
         </div>
-      </div>
+        {{ end }}
+        </div>
     </div>
     <script>
       function toggleDetails(id) {
