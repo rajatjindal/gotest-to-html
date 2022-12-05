@@ -114,7 +114,7 @@
 
       <!-- print grandchild -->
       {{ define "printgrandchild" }}
-      <div class="w-1/2 relative flex hover:bg-gray-800 hover:rounded py-1" onclick="toggleLogs('{{ .Id }}')">
+      <div class="w-full lg:w-1/2 relative flex hover:bg-gray-800 hover:rounded py-1" onclick="toggleLogs('{{ .Id }}')">
           {{ if eq .Result "pass" }}
             {{  template "check" }}
           {{ end }}
@@ -143,7 +143,7 @@
         </div>
       </div>
       <!-- logs -->
-      <div class="rounded-md border-gray-800 shadow-inner bg-gray-600 hidden mt-5 mb-5 mx-10" id="{{ .Id }}">
+      <div class="rounded-md border-gray-800 shadow-inner bg-gray-600 hidden mt-5 mb-5" id="{{ .Id }}">
         <div class="px-4 py-4">
         {{ range .Logs }}
           <p>{{ . }}</p>
@@ -155,7 +155,7 @@
 
       <!-- print child -->
       {{ define "printchild" }}
-      <div class="w-1/2 hover:bg-gray-800 hover:rounded py-1 px-2" onclick="toggleDetails('{{ .Id }}')">
+      <div class="w-full lg:w-1/2 hover:bg-gray-800 hover:rounded py-1 px-2" onclick="toggleDetails('{{ .Id }}')">
         <div class="flex">
           {{ if eq .Result "pass" }}
             {{  template "check-with-circle" }}
@@ -187,7 +187,7 @@
       </div>
       {{ end }}
       {{ end }}
-      <div class="ml-10 hidden" id="{{ .Id }}">
+      <div class="ml-2 lg:ml-10 hidden" id="{{ .Id }}">
         {{ range .Children }}
           {{ template "printgrandchild" . }}
         {{ end }}
@@ -218,7 +218,7 @@
 
       <!-- templates level report -->
       <div class="mt-5 mb-10">
-        <div class="w-11/12 ml-16 text-sm cursor-pointer">
+        <div class="w-11/12 mx-auto lg:ml-16 text-sm cursor-pointer">
         {{ range .Tests }}
         <div class="py-1">
           {{ template "printtest" . }}
