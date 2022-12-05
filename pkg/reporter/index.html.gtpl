@@ -103,7 +103,7 @@
     <div class="mt-5">
       
       <!-- tags -->
-      <div class="w-11/12 mx-auto flex text-sm">
+      <div class="w-11/12 mx-auto flex flex-wrap gap-y-2 text-sm mt-2">
         {{ range .Tags }}
         <div class="border border-gray-700 rounded flex ml-2">
           <div class="border-r border-gray-700 bg-gray-700"><span class="px-2">{{ .Key }}</span></div>
