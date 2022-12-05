@@ -10,7 +10,7 @@ if [[ -z "$INPUT_DASHBOARD_REPO" ]]; then
     exit 0;
 fi
 
-## check which data branch
+## check which data branch, default to main
 DATA_BRANCH="${INPUT_DASHBOARD_REPO_DATA_BRANCH:-main}"
 
 ## clone dashboard repo
@@ -37,4 +37,4 @@ cd dashboard-repo
 git config user.email "rajatjindal83@gmail.com"
 git config user.name "Rajat Jindal"
 git add . && git commit -m "generated report for ${DATE}_${INPUT_RUN_ID}"
-git push origin main
+git push origin ${DATA_BRANCH}
