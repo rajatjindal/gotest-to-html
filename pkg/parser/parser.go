@@ -13,7 +13,7 @@ func IngestFile(filename string) ([]*Test, error) {
 	}
 
 	p := &eventProcessor{
-		allTests:  []*Test{},
+		allTests:  map[string]*Test{},
 		TestsTree: []*Test{},
 	}
 

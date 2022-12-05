@@ -16,15 +16,16 @@ type Event struct {
 }
 
 type eventProcessor struct {
-	allTests  []*Test
+	allTests  map[string]*Test
 	TestsTree []*Test
 }
 
 func (p *eventProcessor) processEvent(event Event) {
 	switch event.Action {
 	case "run":
+		id := event.Package + "|" + event.Test
 		parent := p.findParentTest(event)
-		current := &Test{Name: getHumanReadableName(event.Test), Parent: parent != nil, Id: event.Package + "|" + event.Test}
+		current := &Test{Name: getHumanReadableName(event.Test), Parent: parent != nil, Id: id}
 		if parent != nil {
 			parent.Children = append(parent.Children, current)
 		}
@@ -33,7 +34,7 @@ func (p *eventProcessor) processEvent(event Event) {
 			p.TestsTree = append(p.TestsTree, current)
 		}
 
-		p.allTests = append(p.allTests, current)
+		p.allTests[id] = current
 	case "output":
 		test := p.findTest(event)
 		test.Logs = append(test.Logs, event.Output)
@@ -69,29 +70,13 @@ func (p *eventProcessor) findParentTest(event Event) *Test {
 	parentName = strings.Join(parts[:len(parts)-1], "/")
 
 	parentId := event.Package + "|" + parentName
-	for _, test := range p.allTests {
-		if test.Id == parentId {
-			return test
-		}
-	}
-
-	return nil
+	return p.allTests[parentId]
 }
 
 func (p *eventProcessor) findTest(event Event) *Test {
-	if len(p.allTests) == 0 {
-		return &Test{
-			Name:     getHumanReadableName(event.Test),
-			Children: []*Test{},
-			Id:       event.Package + "|" + event.Test,
-		}
-	}
-
 	primaryKey := event.Package + "|" + event.Test
-	for _, test := range p.allTests {
-		if test.Id == primaryKey {
-			return test
-		}
+	if test, ok := p.allTests[primaryKey]; ok {
+		return test
 	}
 
 	return &Test{
