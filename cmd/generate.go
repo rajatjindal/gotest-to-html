@@ -41,16 +41,14 @@ func generate() error {
 		Tags:           getTagsFromInput(getInputForAction("tags")),
 	}
 
-	if getInputForAction("html_output_file") != "" {
-		out, err := reporter.ToHTML(data)
-		if err != nil {
-			return err
-		}
+	out, err := reporter.ToHTML(data)
+	if err != nil {
+		return err
+	}
 
-		err = os.WriteFile(htmlOutputFile(), out, 0644)
-		if err != nil {
-			return err
-		}
+	err = os.WriteFile(htmlOutputFile(), out, 0644)
+	if err != nil {
+		return err
 	}
 
 	if getInputForAction("json_output_file") != "" {
@@ -104,10 +102,5 @@ func htmlOutputFile() string {
 }
 
 func jsonOutputFile() string {
-	file := "report.json"
-	if getInputForAction("json_output_file") != "" {
-		file = getInputForAction("json_output_file")
-	}
-
-	return filepath.Join(os.Getenv("GITHUB_WORKSPACE"), file)
+	return filepath.Join(os.Getenv("GITHUB_WORKSPACE"), getInputForAction("json_output_file"))
 }

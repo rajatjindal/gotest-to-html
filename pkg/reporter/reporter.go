@@ -2,7 +2,7 @@ package reporter
 
 import (
 	"bytes"
-	_ "embed"
+	"embed"
 	"encoding/json"
 	"html/template"
 
@@ -18,8 +18,9 @@ func ToJson(data *TestDataWithMeta) ([]byte, error) {
 	return b, nil
 }
 
-//go:embed index.html.gtpl
-var tmpl string
+//go:embed templates/**/*
+//go:embed templates/*
+var templates embed.FS
 
 type TestDataWithMeta struct {
 	TitlePrimary   string         `json:"titlePrimary"`
@@ -36,12 +37,12 @@ type Tag struct {
 func ToHTML(data *TestDataWithMeta) ([]byte, error) {
 	var buf bytes.Buffer
 
-	t, err := template.New("report").Parse(tmpl)
+	t, err := template.New("index.html.gtpl").ParseFS(templates, "templates/components/icons/*.gtpl", "templates/components/*.gtpl", "templates/index.html.gtpl")
 	if err != nil {
 		return nil, err
 	}
 
-	err = t.ExecuteTemplate(&buf, "report", data)
+	err = t.ExecuteTemplate(&buf, "index.html.gtpl", data)
 	if err != nil {
 		return nil, err
 	}
