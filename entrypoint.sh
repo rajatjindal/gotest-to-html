@@ -6,7 +6,8 @@ set -o pipefail
 ## generate report first
 gotest-to-html generate
 
-if [[ -z "$INPUT_DASHBOARD_REPO" ]]; then
+ARCHIVE_ENABLED="${INPUT_ARCHIVE:-false}"
+if [[ "$ARCHIVE_ENABLED" != "true" ]]; then
     exit 0;
 fi
 
