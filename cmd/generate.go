@@ -42,7 +42,14 @@ func generate() error {
 			files = append(files, l.Name())
 		}
 	} else {
-		files = strings.Split(inp, ",")
+		for _, file := range strings.Split(inp, ",") {
+			_, err := os.Stat(file)
+			if os.IsNotExist(err) {
+				continue
+			}
+
+			files = append(files, file)
+		}
 	}
 
 	for _, file := range files {
