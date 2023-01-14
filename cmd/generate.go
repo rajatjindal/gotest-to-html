@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"os"
-	"path/filepath"
 	"strings"
 
 	"github.com/rajatjindal/gotest-to-html/pkg/parser"
@@ -29,13 +28,39 @@ var actionCmd = &cobra.Command{
 }
 
 func generate() error {
-	tests, err := parser.IngestFile(getInputForAction("gotest_output_file"))
+	inp := getInputForAction("gotest_output_file")
+	files := []string{}
+
+	if stat, _ := os.Stat(inp); stat != nil && stat.IsDir() {
+		list, err := os.ReadDir(inp)
+		if err != nil {
+			return err
+		}
+
+		for _, l := range list {
+			files = append(files, l.Name())
+		}
+	} else {
+		files = strings.Split(inp, ",")
+	}
+
+	for _, file := range files {
+		generateOne(file)
+	}
+
+	return nil
+}
+
+func generateOne(file string) error {
+	tests, err := parser.IngestFile(file)
 	if err != nil {
 		return err
 	}
 
+	title := strings.ReplaceAll(file, ".json", "")
+	title = strings.ReplaceAll(title, "-", " ")
 	data := &reporter.TestDataWithMeta{
-		TitlePrimary:   getInputForAction("title_primary"),
+		TitlePrimary:   title,
 		TitleSecondary: getInputForAction("title_secondary"),
 		Tests:          tests,
 		Tags:           getTagsFromInput(getInputForAction("tags")),
@@ -46,21 +71,19 @@ func generate() error {
 		return err
 	}
 
-	err = os.WriteFile(htmlOutputFile(), out, 0644)
+	err = os.WriteFile(strings.ReplaceAll(file, ".json", "-report.html"), out, 0644)
 	if err != nil {
 		return err
 	}
 
-	if getInputForAction("json_output_file") != "" {
-		out, err := reporter.ToJson(data)
-		if err != nil {
-			return err
-		}
+	out, err = reporter.ToJson(data)
+	if err != nil {
+		return err
+	}
 
-		err = os.WriteFile(jsonOutputFile(), out, 0644)
-		if err != nil {
-			return err
-		}
+	err = os.WriteFile(strings.ReplaceAll(file, ".json", "-report.json"), out, 0644)
+	if err != nil {
+		return err
 	}
 
 	return nil
@@ -90,17 +113,4 @@ func getTagsFromInput(s string) []reporter.Tag {
 	}
 
 	return tags
-}
-
-func htmlOutputFile() string {
-	file := "report.html"
-	if getInputForAction("html_output_file") != "" {
-		file = getInputForAction("html_output_file")
-	}
-
-	return filepath.Join(os.Getenv("GITHUB_WORKSPACE"), file)
-}
-
-func jsonOutputFile() string {
-	return filepath.Join(os.Getenv("GITHUB_WORKSPACE"), getInputForAction("json_output_file"))
 }
