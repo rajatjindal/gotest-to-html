@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"github.com/rajatjindal/gotest-to-html/pkg/parser"
@@ -57,8 +58,10 @@ func generateOne(file string) error {
 		return err
 	}
 
-	title := strings.ReplaceAll(file, ".json", "")
+	title := filepath.Base(file)
+	title = strings.ReplaceAll(title, ".json", "")
 	title = strings.ReplaceAll(title, "-", " ")
+
 	data := &reporter.TestDataWithMeta{
 		TitlePrimary:   title,
 		TitleSecondary: getInputForAction("title_secondary"),
