@@ -76,7 +76,7 @@ func getTagsFromInput(s string) []reporter.Tag {
 		return tags
 	}
 
-	for _, pair := range strings.Split(s, " ") {
+	for _, pair := range strings.Split(s, ";") {
 		parts := strings.Split(pair, "=")
 
 		if len(parts) != 2 {
@@ -84,8 +84,8 @@ func getTagsFromInput(s string) []reporter.Tag {
 		}
 
 		tags = append(tags, reporter.Tag{
-			Key:   parts[0],
-			Value: parts[1],
+			Key:   strings.TrimSpace(parts[0]),
+			Value: strings.TrimSpace(parts[1]),
 		})
 	}
 

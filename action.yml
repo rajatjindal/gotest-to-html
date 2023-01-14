@@ -3,14 +3,14 @@ name: "gotest-to-html"
 description: "create html report from gotest json output file"
 runs:
   using: "docker"
-  image: "docker://ghcr.io/rajatjindal/gotest-to-html:v0.0.17"
+  image: "docker://ghcr.io/rajatjindal/gotest-to-html:v0.0.18"
 inputs:
   title_primary:
     description: "displayed in navigation with highlighted background"
   title_secondary:
     description: "displayed in navigation next to primary title"
   tags:
-    description: "space separated tags associated with this execution. e.g. KEY=VALUE KEY2=VALUE2"
+    description: "semi-colon (;) separated tags associated with this execution. e.g. KEY=VALUE;KEY2=VALUE2"
   format:
     description: "html or json"
   gotest_output_file:
